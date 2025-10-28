@@ -1,6 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormUtils } from '../../../utils/form-utils';
 
 @Component({
   selector: 'app-basic',
@@ -20,7 +21,8 @@ export class BasicComponent {
   //forma recomendada
 
   private fb = inject(FormBuilder)
-
+  formUtils = FormUtils
+  //FORMULARIOS GRUPOS
   myFomr: FormGroup = this.fb.group({
     /**usa
      * validadore sincronos y validadores asyncronos , donde se tienen que meter dentro de un []
@@ -31,38 +33,56 @@ export class BasicComponent {
     inStorage: [0, [Validators.required, Validators.min(0)]]
   })
 
-  isValField(fieldName: string): boolean | null {
-    return !!this.myFomr.controls[fieldName].errors
-  }
+  //VALIDACION
+
+  // isValField(fieldName: string): boolean | null {
+  //   return (
+  //     this.myFomr.controls[fieldName].errors &&
+  //     this.myFomr.controls[fieldName].touched
+  //   )
+  // }
 
 
-  //
-  getFieldError(fieldName: string): string | null {
-    if (!this.myFomr.controls[fieldName]) {
-      return null
+  //errores
+  // getFieldError(fieldName: string): string | null {
+  //   if (!this.myFomr.controls[fieldName]) {
+  //     return null
+  //   }
+  //   const errors = this.myFomr.controls[fieldName].errors ?? {}
+  //   for (const key of Object.keys(errors)) {
+  //     switch (key) {
+  //       case 'required':
+  //         return 'Este campo es requerido'
+  //       case 'minlength':
+  //         return `Minimo de ${errors['minlength'].requiredLength} caracteres.`;
+  //       case 'min':
+  //         return `Minimo de ${errors['mih'].min}`;
+  //     }
+  //   }
+  //   return null
+  // }
+
+  onSave() {
+    //tocar todos los elementos del formulario
+
+    if (this.myFomr.invalid) {
+      this.myFomr.markAllAsTouched()
+      return
     }
 
-    const errors = this.myFomr.controls[fieldName].errors ?? {}
+    console.log('====================================');
+    console.log(this.myFomr.value);
+    console.log('====================================');
+
+    //resetar form
+    this.myFomr.reset({
+      //valores por defecto
+      price: 0,
+      inStorage: 0
+    })
 
 
-    for (const key of Object.keys(errors)) {
-      switch (key) {
-        case 'required':
-          return 'Este campo es requerido'
-
-        case 'minlength':
-          return `Minimo de ${errors['minlength'].requiredLength} caracteres.`;
-
-        case 'min':
-          return `Minimo de ${errors['mih'].min}`;
-
-
-      }
-    }
-    return null
   }
-
-
 
 
 }

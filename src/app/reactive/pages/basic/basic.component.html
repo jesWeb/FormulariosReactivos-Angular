@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col">
-    <form autocomplete="off" [formGroup]="myFomr">
+    <form autocomplete="off" [formGroup]="myFomr" (ngSubmit)="onSave()">
       <!-- Campo de producto -->
       <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Producto</label>
@@ -14,11 +14,11 @@
             placeholder="Nombre del producto"
             formControlName="name"
           />
-          @if (isValField('name')) {
+          @if ( formUtils.isValField(myFomr,'name')) {
 
           <span class="form-text text-danger">
             <!-- Debe de ser de 3 letras -->
-            {{getFieldError('name')}}
+            {{ formUtils.getFieldError(myFomr, "name") }}
           </span>
           }
         </div>
@@ -34,9 +34,11 @@
             placeholder="Precio del producto"
             formControlName="price"
           />
+          @if (formUtils.isValField(myFomr,'price')) {
           <span class="form-text text-danger">
-            El precio debe de ser 0 o mayor
+            {{ formUtils.getFieldError(myFomr, "price") }}
           </span>
+          }
         </div>
       </div>
 
@@ -51,9 +53,11 @@
             formControlName="inStorage"
           />
 
+          @if (formUtils.isValField(myFomr,'inStorage')) {
           <span class="form-text text-danger">
-            Las existencias deben de ser 0 o mayor
+            {{ formUtils.getFieldError(myFomr, "inStorage") }}
           </span>
+          }
         </div>
       </div>
 
@@ -83,13 +87,13 @@
     <pre>{{ myFomr.value | json }}</pre>
 
     <span>Errores</span>
-    <pre>{{ myFomr.controls['name'].errors | json }}</pre>
+    <pre>{{ myFomr.controls["name"].errors | json }}</pre>
     <pre>{{ myFomr.controls["price"].errors | json }}</pre>
 
     <span>Precio</span>
-    <pre>{{ myFomr.controls['price'].value | json }}</pre>
+    <pre>{{ myFomr.controls["price"].value | json }}</pre>
 
     <span>Producto</span>
-    <pre>{{ myFomr.controls['name'].value | json }}</pre>
+    <pre>{{ myFomr.controls["name"].value | json }}</pre>
   </div>
 </div>
