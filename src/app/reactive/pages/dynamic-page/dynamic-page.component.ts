@@ -49,8 +49,11 @@ export class DynamicPageComponent {
     this.favoriteGames.removeAt(index)
   }
 
-  onSubmit(){
-    this.myForm.markAllAsTouched()
+  onSubmit() {
+    console.log('====================================');
+    console.log(this.myForm.value);
+    console.log('====================================');
+    this.myForm.markAllAsTouched();
   }
 
 

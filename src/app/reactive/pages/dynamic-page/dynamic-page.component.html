@@ -26,12 +26,17 @@
       <div class="input-group">
         <input
           [formControl]="newFavorite"
-          (keydown)="onAddFavorites()"
+          (keydown.enter)="onAddFavorites()"
+          (keydown.enter)="$event.preventDefault()"
           class="form-control"
           placeholder="Agregar favorito"
         />
 
-        <button class="btn btn-outline-primary" type="button">
+        <button
+          (click)="onAddFavorites()"
+          class="btn btn-outline-primary"
+          type="button"
+        >
           Agregar favorito
         </button>
       </div>
@@ -60,8 +65,7 @@
         </span>
         } -->
       </div>
-      }
-      @if (formUtils.isValField(myForm,'favoriteGames')) {
+      } @if (formUtils.isValField(myForm,'favoriteGames')) {
       <span class="form-text text-danger"> Debe Tener almenos 2 juegos </span>
       }
     </div>
