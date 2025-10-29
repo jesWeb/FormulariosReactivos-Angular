@@ -1,7 +1,7 @@
 <h2>Reactivos: <small> Dinámicos </small></h2>
 <hr />
 
-<form autocomplete="off" [formGroup]="myForm">
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <!-- Nombre -->
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Nombre</label>
@@ -11,7 +11,11 @@
         formControlName="name"
         placeholder="Nombre de la persona"
       />
-      <span class="form-text text-danger"> error message </span>
+      @if (formUtils.isValField(myForm,'name')) {
+      <span class="form-text text-danger">
+        {{ formUtils.getFieldError(myForm, "name") }}
+      </span>
+      }
     </div>
   </div>
 
@@ -20,7 +24,12 @@
     <label class="col-sm-3 col-form-label">Agregar</label>
     <div class="col-sm-9">
       <div class="input-group">
-        <input class="form-control" placeholder="Agregar favorito" />
+        <input
+          [formControl]="newFavorite"
+          (keydown)="onAddFavorites()"
+          class="form-control"
+          placeholder="Agregar favorito"
+        />
 
         <button class="btn btn-outline-primary" type="button">
           Agregar favorito
@@ -37,19 +46,34 @@
       <div class="mb-1">
         <div class="input-group">
           <input class="form-control" [formControlName]="i" />
-
-          <button class="btn btn-outline-danger" type="button">Eliminar</button>
+          <button
+            (click)="onDeleteFavorite(i)"
+            class="btn btn-outline-danger"
+            type="button"
+          >
+            Eliminar
+          </button>
         </div>
-        <span class="form-text text-danger"> Este campo es requerido </span>
+        <!-- @if (formUtils.isValidFiledInArray(favoriteGames,i)) {
+        <span class="form-text text-danger">
+          {{ formUtils.getFieldErrorArray(favoriteGames, i) }}
+        </span>
+        } -->
       </div>
+      }
+      @if (formUtils.isValField(myForm,'favoriteGames')) {
+      <span class="form-text text-danger"> Debe Tener almenos 2 juegos </span>
       }
     </div>
   </div>
 
   <div class="row">
     <div class="col-sm-12">
-      <button type="submit" class="btn btn-primary float-end">
-        <!-- [disabled]="myForm.invalid" -->
+      <button
+        [disabled]="myForm.invalid"
+        type="submit"
+        class="btn btn-primary float-end"
+      >
         Guardar
       </button>
     </div>
@@ -57,13 +81,12 @@
 </form>
 
 <span>Valid</span>
-<pre>{{ myForm | json }}</pre>
-<br>
+<pre>{{ myForm.value | json }}</pre>
+<br />
 
 <span>Value</span>
-<pre>{{ myForm | json }}</pre>
-<br>
-
+<pre>{{ myForm.value | json }}</pre>
+<br />
 
 <!--
 

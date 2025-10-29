@@ -1,7 +1,20 @@
-import { FormGroup } from "@angular/forms";
+import { FormArray, FormGroup, ValidationErrors } from "@angular/forms";
 
 export class FormUtils {
 
+  static getTextError(errors: ValidationErrors) {
+    for (const key of Object.keys(errors)) {
+      switch (key) {
+        case 'required':
+          return 'Este campo es requerido'
+        case 'minlength':
+          return `valor minimo ${errors['minlength'].requiredLength} caracteres.`;
+        case 'min':
+          return `Minimo de ${errors['min'].min}`;
+      }
+    }
+    return null
+  }
 
   static isValField(form: FormGroup, fieldName: string): boolean | null {
     return (
@@ -16,7 +29,7 @@ export class FormUtils {
     if (!errorF.controls[fieldName]) {
       return null
     }
-      const errors = errorF.controls[fieldName].errors ?? {}
+    const errors = errorF.controls[fieldName].errors ?? {}
     for (const key of Object.keys(errors)) {
       switch (key) {
         case 'required':
@@ -28,6 +41,24 @@ export class FormUtils {
       }
     }
     return null
+  }
+
+  //dynamic
+
+  static isValidFiledInArray(formArray: FormArray, index: number) {
+    return (
+      formArray.controls[index].errors && formArray.controls[index].touched
+    )
+  }
+
+
+  static getFieldErrorArray(errorF: FormArray, index: number): string | null {
+    if (errorF.controls.length === 0) {
+      return null
+    }
+    const errors = errorF.controls[index].errors ?? {}
+
+    return FormUtils.getTextError(errors)
   }
 
 }
