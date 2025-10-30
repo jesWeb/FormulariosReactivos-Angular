@@ -11,6 +11,8 @@ export class FormUtils {
           return `valor minimo ${errors['minlength'].requiredLength} caracteres.`;
         case 'min':
           return `Minimo de ${errors['min'].min}`;
+        case 'email':
+          return `El valor ingresado no es un correo electronico valido`;
       }
     }
     return null

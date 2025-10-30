@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col">
-    <form autocomplete="off">
+    <form autocomplete="off" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <!-- Nombre -->
       <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Nombre y apellido</label>
@@ -12,11 +12,15 @@
             type="text"
             class="form-control"
             placeholder="Nombre del usuario"
+            formControlName="nombre"
           />
 
+          @if(formUtil.isValField(loginForm,'nombre')){
           <span class="form-text text-danger">
-            Debe de ser en formato de nombre y apellido
+            {{ formUtil.getFieldError(loginForm, "nombre") }}
+            <!-- Debe de ser en formato de nombre y apellido -->
           </span>
+          }
         </div>
       </div>
 
@@ -28,10 +32,16 @@
             type="email"
             class="form-control"
             placeholder="Email del usuario"
+            formControlName="email"
+            email="true"
           />
+
+          @if(formUtil.isValField(loginForm,'email')){
           <span class="form-text text-danger">
-            mensaje de error del email
+            {{ formUtil.getFieldError(loginForm, "email") }}
+            <!-- mensaje de error del email -->
           </span>
+          }
         </div>
       </div>
 
@@ -43,10 +53,15 @@
             type="text"
             class="form-control"
             placeholder="Nombre código del usuario"
+            formControlName="userName"
           />
+
+          @if(formUtil.isValField(loginForm,'userName')){
           <span class="form-text text-danger">
-            El username no puede ser Strider
+            {{ formUtil.getFieldError(loginForm, "UserName") }}
+            <!-- El username no puede ser Strider -->
           </span>
+          }
         </div>
       </div>
 
@@ -58,11 +73,15 @@
             type="password"
             class="form-control"
             placeholder="Password de su cuenta"
+            formControlName="password"
           />
 
+          @if(formUtil.isValField(loginForm,'password')){
           <span class="form-text text-danger">
-            La contraseña debe de ser mayor de 6 caracteres.
+            {{ formUtil.getFieldError(loginForm, "password") }}
+            <!-- La contraseña debe de ser mayor de 6 caracteres. -->
           </span>
+          }
         </div>
       </div>
 
@@ -74,11 +93,14 @@
             type="password"
             class="form-control"
             placeholder="Confirmar la contraseña"
+            formControlName="passConfirm"
           />
-
+          @if(formUtil.isValField(loginForm,'passConfirm')){
           <span class="form-text text-danger">
-            Las contraseñas deben de ser iguales
+            {{ formUtil.getFieldError(loginForm, "passConfirm") }}
+            <!-- Las contraseñas deben de ser iguales -->
           </span>
+          }
         </div>
       </div>
 
@@ -91,24 +113,28 @@
   </div>
 </div>
 
-<h2>Form Valid:</h2>
-<h2>Form Status:</h2>
-<h2>Form Pending:</h2>
-<h2>Form errors</h2>
-<!-- <pre>{{ 'formulario' | json }}</pre>
+<h2>Form Valid:{{ loginForm.valid }}</h2>
+<h2>Form Status:{{ loginForm.status }}</h2>
+<h2>Form Pending:{{ loginForm.pending }}</h2>
+<h2>Form errors{{ loginForm.errors }}</h2>
+
+<pre>{{ loginForm.errors | json }}</pre>
+
+<h5>values</h5>
+
+<pre>{{ loginForm.value | json }}</pre>
 
 <h5>Nombre</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ loginForm.controls["nombre"].value | json }}</pre>
 
 <h5>Email</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ loginForm.controls["email"].value | json }}</pre>
 
 <h5>Username</h5>
-<pre>{{ 'formulario' | json }}</pre>
-
+<pre>{{ loginForm.controls["userName"].value | json }}</pre>
 
 <h5>Password</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ loginForm.controls["password"].value | json }}</pre>
 
 <h5>Confirmar</h5>
-<pre>{{ 'formulario' | json }}</pre> -->
+<pre>{{ loginForm.controls["passConfirm"].value | json }}</pre>

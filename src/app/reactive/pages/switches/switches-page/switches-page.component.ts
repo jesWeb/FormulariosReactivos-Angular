@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { JsonPipe, NgClass } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { FormUtils } from '../../../../utils/form-utils';
 
 @Component({
   selector: 'app-switches-page',
-  imports: [JsonPipe, ReactiveFormsModule, NgClass],
+  imports: [JsonPipe, ReactiveFormsModule],
   templateUrl: './switches-page.component.html',
 })
 export class SwitchesPageComponent {
