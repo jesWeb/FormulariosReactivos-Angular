@@ -17,7 +17,7 @@
 
           @if(formUtil.isValField(loginForm,'nombre')){
           <span class="form-text text-danger">
-            El valor de nombre debe llevasr mayusculas y minuscula
+            El valor de nombre debe llevar mayusculas y minuscula
             <!-- {{ formUtil.getFieldError(loginForm, "nombre") }} -->
             <!-- Debe de ser en formato de nombre y apellido -->
           </span>
@@ -108,6 +108,9 @@
 
       <div class="row">
         <div class="col">
+          @if (loginForm.errors && loginForm.touched) {
+          <span class="text-danger"> las contraseñas no son iguales </span>
+          }
           <button class="btn btn-primary float-end" type="submit">Crear</button>
         </div>
       </div>
@@ -115,28 +118,26 @@
   </div>
 </div>
 
-<h2>Form Valid:{{ loginForm.valid }}</h2>
-<h2>Form Status:{{ loginForm.status }}</h2>
-<h2>Form Pending:{{ loginForm.pending }}</h2>
-<h2>Form errors{{ loginForm.errors }}</h2>
-
+<h2>Form Valid: {{ loginForm.valid }}</h2>
+<h2>Form Status: {{ loginForm.status }}</h2>
+<h2>Form Pending: {{ loginForm.pending }}</h2>
+<h2>Form errors</h2>
 <pre>{{ loginForm.errors | json }}</pre>
 
-<h5>values</h5>
-
+<h2>Value</h2>
 <pre>{{ loginForm.value | json }}</pre>
 
 <h5>Nombre</h5>
-<pre>{{ loginForm.controls["nombre"].value | json }}</pre>
+<pre>{{ loginForm.controls["nombre"].errors | json }}</pre>
 
 <h5>Email</h5>
-<pre>{{ loginForm.controls["email"].value | json }}</pre>
+<pre>{{ loginForm.controls["email"].errors | json }}</pre>
 
 <h5>Username</h5>
-<pre>{{ loginForm.controls["userName"].value | json }}</pre>
+<pre>{{ loginForm.controls["userName"].errors | json }}</pre>
 
 <h5>Password</h5>
-<pre>{{ loginForm.controls["password"].value | json }}</pre>
+<pre>{{ loginForm.controls["password"].errors | json }}</pre>
 
 <h5>Confirmar</h5>
-<pre>{{ loginForm.controls["passConfirm"].value | json }}</pre>
+<pre>{{ loginForm.controls["passConfirm"].errors | json }}</pre>

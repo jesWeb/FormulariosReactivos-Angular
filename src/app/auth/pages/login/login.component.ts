@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtils } from '../../../utils/form-utils';
 
 @Component({
@@ -10,8 +10,6 @@ import { FormUtils } from '../../../utils/form-utils';
 })
 export class LoginComponent {
 
-
-
   private fb = inject(FormBuilder);
 
   formUtil = FormUtils
@@ -19,9 +17,21 @@ export class LoginComponent {
   //formBUilder
   loginForm: FormGroup = this.fb.group({
     nombre: ['', [Validators.required, Validators.pattern(this.formUtil.namePattern)]],
-    email: ['', [Validators.required, Validators.pattern(FormUtils.emailPattern)]],
-    userName: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.formUtil.notOnlySpacesPattern)]],
+    email: ['',
+      //normal
+      [Validators.required, Validators.pattern(FormUtils.emailPattern)],
+      //async
+      [FormUtils.checkingServerResponse]
+    ],
+    userName: ['',
+      [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern(this.formUtil.notOnlySpacesPattern),
+        FormUtils.noUsuario
+      ],
 
+    ],
     password: ['', [Validators.required, Validators.minLength(6)]],
     passConfirm: ['', [Validators.required]],
 
