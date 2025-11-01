@@ -17,7 +17,8 @@
 
           @if(formUtil.isValField(loginForm,'nombre')){
           <span class="form-text text-danger">
-            {{ formUtil.getFieldError(loginForm, "nombre") }}
+            El valor de nombre debe llevasr mayusculas y minuscula
+            <!-- {{ formUtil.getFieldError(loginForm, "nombre") }} -->
             <!-- Debe de ser en formato de nombre y apellido -->
           </span>
           }
@@ -38,6 +39,7 @@
 
           @if(formUtil.isValField(loginForm,'email')){
           <span class="form-text text-danger">
+            <!-- El valoer del correo no es valido -->
             {{ formUtil.getFieldError(loginForm, "email") }}
             <!-- mensaje de error del email -->
           </span>
