@@ -27,15 +27,15 @@ export class SideMenuComponent {
         title: `${item.path}`
       }))
 
-      //rutas especificas
+  //rutas especificas
   authMenu: MenuItem[] = [{
     title: 'Registro',
     route: './auth'
   }]
 
-  country : MenuItem[] = [{
-    title:'Paises',
-    route:'./country'
+  country: MenuItem[] = [{
+    title: 'Paises',
+    route: './country'
   }]
 
 }
